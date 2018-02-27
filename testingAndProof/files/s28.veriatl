@@ -1,0 +1,18 @@
+Object s Relship
+Object sc Schema
+Link s.schema=sc
+
+Object a1 ERAttribute
+Object rse1 RelshipEnd
+Link rse1.relship=s
+Link a1.entity=rse1.entity
+Attribute a1.iskey=true
+
+Object a2 ERAttribute
+Object rse2 RelshipEnd
+Link rse2.relship=s
+Link a2.entity=rse2.entity
+Attribute a2.iskey=true
+
+Attribute a1.name=a2.name
+

@@ -1,0 +1,30 @@
+-- @atlcompiler atl2010
+
+module ER2REL; create OUT : REL from IN : ER;
+
+helper context ER!Entity def: unique_er_entity_attr_names(): Boolean = -- attr names are unique in Entity
+  ER!Entity.allInstances()->forAll(e | e.attrs->forAll(a1,a2 | a1<>a2 implies a1.name<>a2.name ));
+
+--@pre
+helper context ER!Relship def: unique_er_relship_attr_names(): Boolean = -- attr names are unique in Relship
+  ER!Relship.allInstances()->forAll(r | r.attrs->forAll(a1,a2 | a1<>a2 implies a1.name<>a2.name ));
+
+rule R2R { 
+  from s: ER!Relship 
+  to t: REL!Relation ( name<-s.name, schema<-s.schema) }
+
+rule RA2AK { 
+  from att: ER!ERAttribute, rse: ER!RelshipEnd  ( att.entity=rse.entity and att.isKey=true )
+  to t: REL!RELAttribute ( name<-att.name, isKey<-att.isKey, relation<-rse.relship )}	
+  
+context FSM!RELRelation inv S28: 
+*hypothesis* var r,a1,a2
+*hypothesis* REL!RELRelation.allInstances()->includes(r) 
+*hypothesis* r.attrs->includes(a1)
+*hypothesis* r.attrs->includes(a2) 
+*hypothesis* a1 <> a2
+*hypothesis* genBy(r,R2R) 
+*hypothesis* r.attrs.size() > 0 
+*hypothesis* genBy(a1,RA2AK) 
+*hypothesis* genBy(a2,RA2AK) 
+*goal* a1.name <> a2.name

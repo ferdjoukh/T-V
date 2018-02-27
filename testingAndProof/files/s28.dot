@@ -1,0 +1,17 @@
+Graph g{ 
+s [shape=record,label="{s:Relship|}"];
+s--sc[arrowhead=open,arrowtail=open,dir=forward,label=schema];
+sc [shape=record,label="{sc:Schema|}"];
+a1 [shape=record,label="{a1:ERAttribute|iskey=true\nname=chygpp\n}"];
+a1--bnp[arrowhead=open,arrowtail=open,dir=forward,label=entity];
+rse1 [shape=record,label="{rse1:RelshipEnd|}"];
+rse1--s[arrowhead=open,arrowtail=open,dir=forward,label=relship];
+rse1--bnp[arrowhead=open,arrowtail=open,dir=forward,label=entity];
+bnp [shape=record,label="{bnp:Entity|}"];
+a2 [shape=record,label="{a2:ERAttribute|iskey=true\nname=chygpp\n}"];
+a2--pf[arrowhead=open,arrowtail=open,dir=forward,label=entity];
+rse2 [shape=record,label="{rse2:RelshipEnd|}"];
+rse2--s[arrowhead=open,arrowtail=open,dir=forward,label=relship];
+rse2--pf[arrowhead=open,arrowtail=open,dir=forward,label=entity];
+pf [shape=record,label="{pf:Entity|}"];
+} 
